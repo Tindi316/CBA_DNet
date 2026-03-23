@@ -179,7 +179,7 @@ If this work is helpful to your research, please cite:
 
 The source code of this method is open source. Welcome to visit and use:
 
-🔗 **https://gitee.com/mohansir/swd-net.git**
+🔗 **https://github.com/Tindi316/CBA_DNet.git**
 
 ---
 
