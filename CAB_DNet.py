@@ -55,7 +55,7 @@ class SWL(nn.Module):
         return band_weights
 
 
-# ------------------- DEConv Module ------------------- #
+# ------------------- MDDC Module ------------------- #
 class Conv2d_cd(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=1, dilation=1, groups=1, bias=False):
         super(Conv2d_cd, self).__init__()
@@ -126,9 +126,9 @@ class Conv2d_ad(nn.Module):
         return conv_weight_ad, self.conv.bias
 
 
-class DEConv(nn.Module):
+class MDDC(nn.Module):
     def __init__(self, dim):
-        super(DEConv, self).__init__()
+        super(MDDC, self).__init__()
         self.conv1_1 = Conv2d_cd(dim, dim, 3, bias=True)
         self.conv1_2 = Conv2d_hd(dim, dim, 3, bias=True)
         self.conv1_3 = Conv2d_vd(dim, dim, 3, bias=True)
@@ -291,9 +291,9 @@ class CAB_DNet(nn.Module):
         # SWL Module for spectral weight learning
         self.swl = SWL(num_channels=num_bands)
 
-        # DEConv branch (replace 3x3 LE-HCL)
-        self.deconv_branch = nn.Sequential(
-            DEConv(dim=in_channels),
+        # MDDC branch (replace 3x3 LE-HCL)
+        self.MDDC_branch = nn.Sequential(
+            MDDC(dim=in_channels),
             nn.BatchNorm2d(in_channels),
             hswish()
         )
@@ -325,8 +325,8 @@ class CAB_DNet(nn.Module):
         band_weights = self.swl(x)
         x = x + x * band_weights
 
-        # DEConv branch
-        out_de = self.deconv_branch(x)
+        # MDDC branch
+        out_de = self.MDDC_branch(x)
 
         # 7x7 LE-HCL branch (need 5D input)
         x_5d = x.unsqueeze(1)  # [B, 1, C, H, W]
@@ -358,7 +358,7 @@ if __name__ == '__main__':
     patch_size = 9  # 示例值
     num_classes = 10  # 示例值
 
-    model = Lite_HCNet_SWL_DE(
+    model = CAB_DNet(
         in_channels=pca_components,
         class_num=num_classes,
         patch_size=patch_size,
