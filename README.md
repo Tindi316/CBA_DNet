@@ -14,11 +14,8 @@
 
 | 特性 | Feature | 说明 | Description |
 |------|---------|------|-------------|
-| **类别感知波段选择** | **Category-Aware Band Selection (SWL)** | 通过光谱注意力机制和类别一致性损失，学习每个类别的专属光谱权重，实现关键波段的精准选择与增强 | Learns class-specific spectral weights through spectral attention and category consistency loss, enabling precise selection and enhancement of critical bands |
-| **细节增强卷积** | **Detail-Enhanced Convolution (DEConv)** | 并行集成常规卷积与四种差分卷积，同时捕获低频强度与高频梯度特征 | Integrates vanilla convolution with four difference convolutions in parallel, capturing both low-frequency intensity and high-frequency gradient features |
-| **重参数化技术** | **Re-parameterization** | 训练时保留并行结构，推理时等效转换为单层卷积，实现精度与效率的统一 | Preserves parallel structure during training and converts to single-layer convolution during inference, achieving balance between accuracy and efficiency |
-| **端到端训练** | **End-to-End Training** | 支持完整的训练、测试与预测流程 | Supports complete training, testing, and prediction pipeline |
-
+| **类别感知的波段选择** | **Band Selection Module(BILM)** | 通过光谱注意力机制和类别一致性损失，学习每个类别的专属光谱权重，实现关键波段的精准选择与增强 | Learns class-specific spectral weights through spectral attention and category consistency loss, enabling precise selection and enhancement of critical bands |
+| **多描述符差分卷积** | **Multi-descriptor Differential Convolution(MDDC)** | 并行集成常规卷积与四种差分卷积，同时捕获低频强度与高频梯度特征 | Integrates vanilla convolution with four difference convolutions in parallel, capturing both low-frequency intensity and high-frequency gradient features |
 ---
 
 ## 项目结构 | Project Structure
